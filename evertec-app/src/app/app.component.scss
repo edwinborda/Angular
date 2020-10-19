@@ -1,0 +1,38 @@
+@import '~bootstrap/scss/bootstrap.scss';
+
+/*Variables*/
+
+$black: #ff6b58;
+
+.content {
+    @extend .card;
+    width: 90vw;
+    margin-left: 5vw;
+}
+
+.content__header {
+    @extend .card-header;
+    font-weight: bold;
+}
+
+.content__label {
+    color: $black;
+}
+
+.content__label--size-big {
+    font-size: 15px;
+}
+
+.content__label--size-medium {
+    font-size: 12px;
+}
+
+.content__label--size-little {
+    font-size: 10px;
+}
+
+.content__body {
+    @extend .card-body;
+    width: 100%;
+    margin-top: 15px;
+}

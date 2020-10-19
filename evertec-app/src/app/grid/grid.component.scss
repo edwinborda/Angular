@@ -1,0 +1,33 @@
+@import '~bootstrap/scss/bootstrap.scss';
+
+.grid {
+    width: 100%;
+}
+
+.message {
+    @extend .alert;
+    width: 50vw;
+    margin-left: 5vw;
+}
+
+.message--danger {
+    @extend .alert-danger;
+}
+
+.message--warning {
+    @extend .alert-warning;
+}
+
+.message--success {
+    @extend .alert-success;
+}
+
+.message--info {
+    @extend .alert-info;
+}
+
+.message__text {
+    margin-left: 30px;
+    font-size: 20px;;
+    margin-top:8px;
+}

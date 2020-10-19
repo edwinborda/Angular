@@ -1,0 +1,57 @@
+<div *ngIf="(messageResponse$ | async) as message">
+    <div class="message">
+        <div class="message--success" *ngIf="message.statusCode >= 200 && message.statusCode < 300">
+            <label class="message__text">{{message.text}}</label>
+        </div>
+        <div class="message--danger" *ngIf="message.statusCode > 499">
+            <label class="message__text">{{message.text}}</label>
+        </div>
+        <div class="message--warning" *ngIf="message.statusCode > 399 && message.statusCode < 500">
+            <label class="message__text">{{message.text}}</label>
+        </div>
+        <div class="message--info" *ngIf="message.statusCode > 99 && message.statusCode < 200">
+            <label class="message__text">{{message.text}}</label>
+        </div>
+    </div>
+</div>
+
+<kendo-grid class="grid" 
+            [data] = "gridResult$ | async"
+            [pageSize]="state.take"
+            [skip]="state.skip"
+            [sort]="state.sort"
+            [sortable]="true"
+            [pageable]="true"
+            [scrollable]="'scrollable'"
+            [filterable]="true"
+            [filter]="state.filter"
+            [navigable]="true"
+            (dataStateChange)="dataStateChange($event)"
+            (edit)="editHandler($event)" 
+            (cancel)="cancelHandler($event)"
+            (save)="saveHandler($event)" 
+            (remove)="removeHandler($event)"
+            (add)="addHandler($event)">
+    <ng-template kendoGridToolbarTemplate>
+        <button kendoGridAddCommand>Add new</button>
+    </ng-template>
+    <kendo-grid-column field="Id" title="Id"></kendo-grid-column>
+    <kendo-grid-column field="Name" title="Name" editor="text"></kendo-grid-column>
+    <kendo-grid-column field="LastName" title="Last name" editor="text"></kendo-grid-column>
+    <kendo-grid-column field="PhoneNumber" title="Phone number" editor="text"></kendo-grid-column>
+    <kendo-grid-column field="Address" title="Address" editor="text"></kendo-grid-column>
+    <kendo-grid-column field="Email" title="Email" editor="text"></kendo-grid-column>
+    <kendo-grid-column field="CreatedDate" title="Created Date">
+        <ng-template kendoGridCellTemplate let-dataItem>
+            <label>{{dataItem.CreatedDate | date}}</label>
+        </ng-template>
+    </kendo-grid-column>
+    <kendo-grid-command-column title="command" width="220">
+        <ng-template kendoGridCellTemplate let-isNew="isNew">
+            <button kendoGridEditCommand [primary]="true">Edit</button>
+            <button kendoGridRemoveCommand>Remove</button>
+            <button kendoGridSaveCommand [disabled]="group?.invalid">{{ isNew ? 'Add' : 'Update' }}</button>
+            <button kendoGridCancelCommand>{{ isNew ? 'Discard changes' : 'Cancel' }}</button>
+        </ng-template>
+     </kendo-grid-command-column>
+</kendo-grid>
